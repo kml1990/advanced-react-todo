@@ -18,7 +18,7 @@ export const getCategories = () => dispatch => {
 };
 
 export const addCategory = category => dispatch => {
-  axios.post("/data/categories/json", category).then(res =>
+  axios.post("/data/categories.json", category).then(res =>
     dispatch({
       type: ADD_CATEGORY,
       payload: res.data
