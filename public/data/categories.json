@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "5be437d199e565743c180717",
+    "name": "Dev Ops",
+    "description": "Dev Ops Stuff",
+    "date": "2018-11-08T13:19:13.492Z",
+    "__v": 0
+  },
+  {
+    "_id": "5be437bd99e565743c180716",
+    "name": "Back End",
+    "description": "Back End stuff",
+    "date": "2018-11-08T13:18:53.464Z",
+    "__v": 0
+  },
+  {
+    "_id": "5be4359599e565743c180714",
+    "name": "Front End",
+    "description": "Front End stuff",
+    "date": "2018-11-08T13:09:41.162Z",
+    "__v": 0
+  },
+  {
+    "_id": "5be4356999e565743c180713",
+    "name": "General",
+    "description": "General stuff about programming",
+    "date": "2018-11-08T13:08:57.634Z",
+    "__v": 0
+  }
+]
