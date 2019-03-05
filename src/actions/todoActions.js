@@ -17,7 +17,7 @@ export const getTodos = () => dispatch => {
       payload: todos
     });
   } else {
-    axios.get("/data/todos.json").then(res =>
+    axios.get("data/todos.json").then(res =>
       dispatch({
         type: GET_TODOS,
         payload: res.data

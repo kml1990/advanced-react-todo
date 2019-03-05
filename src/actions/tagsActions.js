@@ -10,7 +10,7 @@ export const getTags = () => dispatch => {
       payload: tags
     });
   } else {
-    axios.get("/data/tags.json").then(res =>
+    axios.get("data/tags.json").then(res =>
       dispatch({
         type: GET_TAGS,
         payload: res.data

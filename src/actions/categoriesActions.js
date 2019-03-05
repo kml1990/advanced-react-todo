@@ -16,7 +16,7 @@ export const getCategories = () => dispatch => {
       payload: categories
     });
   } else {
-    axios.get("/data/categories.json").then(res =>
+    axios.get("data/categories.json").then(res =>
       dispatch({
         type: GET_CATEGORIES,
         payload: res.data
