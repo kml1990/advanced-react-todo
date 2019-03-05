@@ -39,6 +39,21 @@ class ToDoList extends Component {
     }
   };
 
+  getDateState = date => {
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let dueDate = new Date(date);
+    dueDate.setHours(0, 0, 0, 0);
+
+    if (dueDate.getTime() > today.getTime()) {
+      return "text-primary";
+    } else if (dueDate.getTime() == today.getTime()) {
+      return "text-warning";
+    } else {
+      return "text-danger";
+    }
+  };
+
   render() {
     const { todos } = this.props.todo;
     let filteredToDos = todos.filter(todo => {
@@ -119,7 +134,7 @@ class ToDoList extends Component {
                     </Col>
                     <Col>
                       <div className="text-right">
-                        <h6>
+                        <h6 className={this.getDateState(todo.dueDate)}>
                           <strong>Due: </strong>{" "}
                           {new Intl.DateTimeFormat("en-GB", {
                             year: "numeric",

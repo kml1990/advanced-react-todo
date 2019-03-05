@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import uuid from "uuid";
 import {
   Button,
   Modal,
@@ -13,10 +16,9 @@ import {
   ListGroupItem,
   Collapse
 } from "reactstrap";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { addTag } from "../actions/tagsActions";
+import { addTag, deleteTag } from "../actions/tagsActions";
 
 class TagModal extends Component {
   state = {
@@ -43,6 +45,7 @@ class TagModal extends Component {
     e.preventDefault();
 
     const newTag = {
+      _id: uuid(),
       name: this.state.name,
       description: this.state.description
     };
@@ -51,6 +54,10 @@ class TagModal extends Component {
 
     // Close todoModal
     this.onToggleTag();
+  };
+
+  onDeleteTag = id => {
+    this.props.deleteTag(id);
   };
 
   render() {
@@ -84,8 +91,17 @@ class TagModal extends Component {
               <h5>Existing tags</h5>
               <br />
               <ListGroup>
-                {tags.map(cat => (
-                  <ListGroupItem key={cat._id}>{cat.name}</ListGroupItem>
+                {tags.map(tag => (
+                  <ListGroupItem key={tag._id}>
+                    <strong>{tag.name}</strong> - {tag.description}
+                    <a
+                      className="text-danger float-right"
+                      href="#"
+                      onClick={this.onDeleteTag.bind(this, tag._id)}
+                    >
+                      <FontAwesomeIcon icon="trash-alt" />
+                    </a>
+                  </ListGroupItem>
                 ))}
               </ListGroup>
             </Collapse>
@@ -117,5 +133,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addTag }
+  { addTag, deleteTag }
 )(TagModal);

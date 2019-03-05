@@ -3,56 +3,48 @@
     "_id": "5be4bda93b4aee155870aeaf",
     "name": "GraphQL",
     "description": "Some description about graphql",
-    "date": "2018-11-08T22:50:17.035Z",
-    "__v": 0
+    "date": "2018-11-08T22:50:17.035Z"
   },
   {
     "_id": "5be4bd993b4aee155870aeae",
     "name": "Microsoft",
     "description": "Some description about microsoft",
-    "date": "2018-11-08T22:50:01.113Z",
-    "__v": 0
+    "date": "2018-11-08T22:50:01.113Z"
   },
   {
     "_id": "5be4bd883b4aee155870aead",
     "name": "Google",
     "description": "Some description about google",
-    "date": "2018-11-08T22:49:44.991Z",
-    "__v": 0
+    "date": "2018-11-08T22:49:44.991Z"
   },
   {
     "_id": "5be4bd803b4aee155870aeac",
     "name": "DevTools",
     "description": "Some description about devtools",
-    "date": "2018-11-08T22:49:36.943Z",
-    "__v": 0
+    "date": "2018-11-08T22:49:36.943Z"
   },
   {
     "_id": "5be4bd773b4aee155870aeab",
     "name": "Vue",
     "description": "Some description about vue",
-    "date": "2018-11-08T22:49:27.418Z",
-    "__v": 0
+    "date": "2018-11-08T22:49:27.418Z"
   },
   {
     "_id": "5be4bd6e3b4aee155870aeaa",
     "name": "Angular",
     "description": "Some description about angular",
-    "date": "2018-11-08T22:49:18.520Z",
-    "__v": 0
+    "date": "2018-11-08T22:49:18.520Z"
   },
   {
     "_id": "5be4bd633b4aee155870aea9",
     "name": "JavaScript",
     "description": "Some description about javascript",
-    "date": "2018-11-08T22:49:07.802Z",
-    "__v": 0
+    "date": "2018-11-08T22:49:07.802Z"
   },
   {
     "_id": "5be4bd513b4aee155870aea8",
     "name": "React",
     "description": "Some description about react",
-    "date": "2018-11-08T22:48:49.978Z",
-    "__v": 0
+    "date": "2018-11-08T22:48:49.978Z"
   }
 ]

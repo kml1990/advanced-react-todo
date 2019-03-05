@@ -1,47 +1,45 @@
 import axios from "axios";
-import {
-  GET_TAGS,
-  ADD_TAG,
-  DELETE_TAG,
-  UPDATE_TAG,
-  TAGS_LOADING
-} from "./types.js";
+import { GET_TAGS, ADD_TAG, DELETE_TAG, TAGS_LOADING } from "./types.js";
 
 export const getTags = () => dispatch => {
   dispatch(setTagsLoading());
-  axios.get("/data/tags.json").then(res =>
+  const tags = JSON.parse(localStorage.getItem("tags")) || [];
+  if (tags.length) {
     dispatch({
       type: GET_TAGS,
-      payload: res.data
-    })
-  );
+      payload: tags
+    });
+  } else {
+    axios.get("/data/tags.json").then(res =>
+      dispatch({
+        type: GET_TAGS,
+        payload: res.data
+      })
+    );
+  }
 };
 
 export const addTag = tag => dispatch => {
-  axios.post("/api/tags", tag).then(res =>
-    dispatch({
-      type: ADD_TAG,
-      payload: res.data
-    })
-  );
+  const tags = JSON.parse(localStorage.getItem("tags")) || [];
+  tags.unshift(tag);
+  localStorage.setItem("tags", JSON.stringify(tags));
+  dispatch({
+    type: ADD_TAG,
+    payload: tag
+  });
 };
 
 export const deleteTag = id => dispatch => {
-  axios.delete(`/api/tag/${id}`).then(res =>
-    dispatch({
-      type: DELETE_TAG,
-      payload: id
-    })
-  );
-};
+  const tags = JSON.parse(localStorage.getItem("tags")) || [];
+  const newTags = tags.filter(tag => {
+    return tag._id !== id;
+  });
+  localStorage.setItem("tags", JSON.stringify(newTags));
 
-export const updateTag = tag => dispatch => {
-  axios.put(`/api/tags/${tag._id}`, tag).then(res =>
-    dispatch({
-      type: UPDATE_TAG,
-      payload: res.data
-    })
-  );
+  dispatch({
+    type: DELETE_TAG,
+    payload: id
+  });
 };
 
 export const setTagsLoading = () => {

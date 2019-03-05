@@ -3,45 +3,49 @@ import {
   GET_CATEGORIES,
   ADD_CATEGORY,
   DELETE_CATEGORY,
-  UPDATE_CATEGORY,
   CATEGORIES_LOADING
 } from "./types.js";
 
 export const getCategories = () => dispatch => {
   dispatch(setCategoriesLoading());
-  axios.get("/data/categories.json").then(res =>
+  const categories = JSON.parse(localStorage.getItem("categories")) || [];
+
+  if (categories.length) {
     dispatch({
       type: GET_CATEGORIES,
-      payload: res.data
-    })
-  );
+      payload: categories
+    });
+  } else {
+    axios.get("/data/categories.json").then(res =>
+      dispatch({
+        type: GET_CATEGORIES,
+        payload: res.data
+      })
+    );
+  }
 };
 
 export const addCategory = category => dispatch => {
-  axios.post("/data/categories", category).then(res =>
-    dispatch({
-      type: ADD_CATEGORY,
-      payload: res.data
-    })
-  );
+  const categories = JSON.parse(localStorage.getItem("categories")) || [];
+  categories.unshift(category);
+  localStorage.setItem("categories", JSON.stringify(categories));
+  dispatch({
+    type: ADD_CATEGORY,
+    payload: category
+  });
 };
 
 export const deleteCategory = id => dispatch => {
-  axios.delete(`/api/category/${id}`).then(res =>
-    dispatch({
-      type: DELETE_CATEGORY,
-      payload: id
-    })
-  );
-};
+  const categories = JSON.parse(localStorage.getItem("categories")) || [];
+  const newCategories = categories.filter(category => {
+    return category._id !== id;
+  });
+  localStorage.setItem("categories", JSON.stringify(newCategories));
 
-export const updateCategory = category => dispatch => {
-  axios.put(`/api/categories/${category._id}`, category).then(res =>
-    dispatch({
-      type: UPDATE_CATEGORY,
-      payload: res.data
-    })
-  );
+  dispatch({
+    type: DELETE_CATEGORY,
+    payload: id
+  });
 };
 
 export const setCategoriesLoading = () => {

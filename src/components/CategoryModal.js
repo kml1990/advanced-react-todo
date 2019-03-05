@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import uuid from "uuid";
 import {
   Button,
   Modal,
@@ -13,10 +16,9 @@ import {
   ListGroupItem,
   Collapse
 } from "reactstrap";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { addCategory } from "../actions/categoriesActions";
+import { addCategory, deleteCategory } from "../actions/categoriesActions";
 
 class CategoryModal extends Component {
   state = {
@@ -43,6 +45,7 @@ class CategoryModal extends Component {
     e.preventDefault();
 
     const newCategory = {
+      _id: uuid(),
       name: this.state.name,
       description: this.state.description
     };
@@ -51,6 +54,10 @@ class CategoryModal extends Component {
 
     // Close todoModal
     this.onToggleCat();
+  };
+
+  onDeleteCategory = id => {
+    this.props.deleteCategory(id);
   };
 
   render() {
@@ -85,7 +92,16 @@ class CategoryModal extends Component {
               <br />
               <ListGroup>
                 {categories.map(cat => (
-                  <ListGroupItem key={cat._id}>{cat.name}</ListGroupItem>
+                  <ListGroupItem key={cat._id}>
+                    <strong>{cat.name}</strong> - {cat.description}
+                    <a
+                      className="text-danger float-right"
+                      href="#"
+                      onClick={this.onDeleteCategory.bind(this, cat._id)}
+                    >
+                      <FontAwesomeIcon icon="trash-alt" />
+                    </a>
+                  </ListGroupItem>
                 ))}
               </ListGroup>
             </Collapse>
@@ -117,5 +133,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addCategory }
+  { addCategory, deleteCategory }
 )(CategoryModal);

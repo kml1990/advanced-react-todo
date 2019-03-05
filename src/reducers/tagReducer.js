@@ -14,6 +14,7 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_TAGS:
+      localStorage.setItem("tags", JSON.stringify(action.payload));
       return {
         ...state,
         tags: action.payload,

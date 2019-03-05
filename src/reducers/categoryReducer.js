@@ -14,6 +14,7 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CATEGORIES:
+      localStorage.setItem("categories", JSON.stringify(action.payload));
       return {
         ...state,
         categories: action.payload,
