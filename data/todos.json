@@ -1,0 +1,12 @@
+[
+  {
+    "category": "5be4359599e565743c180714",
+    "completed": false,
+    "_id": "5bf6aef8cf3e22253c934a4f",
+    "name": "Add edit mode",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat cumque reprehenderit, est delectus similique atque nulla, id, eos non voluptate quo quos.",
+    "tags": "[{\"value\":\"5be4bd513b4aee155870aea8\",\"label\":\"React\"},{\"value\":\"5be4bd633b4aee155870aea9\",\"label\":\"JavaScript\"}]",
+    "dueDate": "2018-11-30T00:00:00.000Z",
+    "date": "2018-11-22T13:28:24.772Z"
+  }
+]
