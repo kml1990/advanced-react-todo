@@ -63,8 +63,8 @@ class ToDoList extends Component {
     const { tags } = this.props.tag;
 
     return (
-      <ListGroup className="toDo">
-        <TransitionGroup className="toDo__list">
+      <ListGroup className="todo">
+        <TransitionGroup className="todo__list">
           {filteredToDos.map(todo => (
             <CSSTransition key={todo._id} timeout={500} classNames="fade">
               <ListGroupItem

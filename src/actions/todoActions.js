@@ -9,39 +9,60 @@ import {
 
 export const getTodos = () => dispatch => {
   dispatch(setTodosLoading());
-  axios.get("/data/todos.json").then(res =>
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+  if (todos.length) {
     dispatch({
       type: GET_TODOS,
-      payload: res.data
-    })
-  );
+      payload: todos
+    });
+  } else {
+    axios.get("/data/todos.json").then(res =>
+      dispatch({
+        type: GET_TODOS,
+        payload: res.data
+      })
+    );
+  }
 };
 
 export const addTodo = todo => dispatch => {
-  axios.post("/api/todos", todo).then(res =>
-    dispatch({
-      type: ADD_TODO,
-      payload: res.data
-    })
-  );
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+  todos.unshift(todo);
+  localStorage.setItem("todos", JSON.stringify(todos));
+  dispatch({
+    type: ADD_TODO,
+    payload: todo
+  });
 };
 
 export const deleteTodo = id => dispatch => {
-  axios.delete(`/api/todos/${id}`).then(res =>
-    dispatch({
-      type: DELETE_TODO,
-      payload: id
-    })
-  );
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+  const newTodos = todos.filter(todo => {
+    return todo._id !== id;
+  });
+  localStorage.setItem("todos", JSON.stringify(newTodos));
+
+  dispatch({
+    type: DELETE_TODO,
+    payload: id
+  });
 };
 
-export const updateTodo = todo => dispatch => {
-  axios.put(`/api/todos/${todo._id}`, todo).then(res =>
-    dispatch({
-      type: UPDATE_TODO,
-      payload: res.data
-    })
-  );
+export const updateTodo = updatedTodo => dispatch => {
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+  const updatedTodos = todos.map(todo => {
+    if (todo._id === updatedTodo._id) {
+      return (todo = updatedTodo);
+    }
+    return todo;
+  });
+  localStorage.setItem("todos", JSON.stringify(updatedTodos));
+
+  dispatch({
+    type: UPDATE_TODO,
+    payload: updatedTodos
+  });
 };
 
 export const setTodosLoading = () => {

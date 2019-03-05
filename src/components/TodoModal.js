@@ -18,6 +18,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Select from "react-select";
+import uuid from "uuid";
 
 import { addTodo } from "../actions/todoActions";
 
@@ -74,11 +75,14 @@ class TodoModal extends Component {
     e.preventDefault();
 
     const newTodo = {
+      _id: uuid(),
       name: this.state.name,
       description: this.state.description,
       category: this.state.category,
       tags: this.state.tags,
-      dueDate: this.state.dueDate
+      dueDate: new Date(this.state.dueDate),
+      date: new Date(),
+      completed: false
     };
     // Add todo via addTodo action
     this.props.addTodo(newTodo);

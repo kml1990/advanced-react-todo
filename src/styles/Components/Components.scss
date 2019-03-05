@@ -1,0 +1,183 @@
+.appNavbar__menu {
+  padding: 0;
+  .dropdown-item {
+    padding: 0.25rem 0.5rem;
+    &:hover {
+      border-right: 2px solid $primary-color;
+    }
+  }
+}
+
+.todos {
+  border-right: 1px solid #e3e3e4;
+  height: 70vh;
+}
+
+.todo {
+  overflow: hidden;
+  overflow-y: auto;
+  height: calc(70vh - 2.5rem);
+  &::-webkit-scrollbar {
+    width: 0px; /* remove scrollbar space */
+    background: transparent; /* optional: just make scrollbar invisible */
+  }
+  /* optional: show position indicator in red */
+  &::-webkit-scrollbar-thumb {
+    background: #fff;
+  }
+  .toDo__list-item {
+    margin-bottom: 1rem;
+    -webkit-box-shadow: 0 0 1px rgba(109, 17, 17, 0.5);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+    padding: 1rem 0 0;
+    position: relative;
+    border: 0;
+    border-radius: 1px;
+    padding: 1rem;
+    -webkit-transition: all 0.46s cubic-bezier(0.17, 0.67, 0.22, 0.91);
+    -o-transition: all 0.46s cubic-bezier(0.17, 0.67, 0.22, 0.91);
+    transition: all 0.46s cubic-bezier(0.17, 0.67, 0.22, 0.91);
+    cursor: pointer;
+    &::after {
+      background: $primary-color;
+      content: "";
+      height: 1px;
+      width: 15%;
+      position: absolute;
+      top: -1px;
+      left: 0;
+      -webkit-transition: all 0.46s cubic-bezier(0.17, 0.67, 0.22, 0.91);
+      -o-transition: all 0.46s cubic-bezier(0.17, 0.67, 0.22, 0.91);
+      transition: all 0.46s cubic-bezier(0.17, 0.67, 0.22, 0.91);
+    }
+    &:hover {
+      -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.075);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.075);
+      &::after {
+        background: $primary-color;
+        width: 100%;
+        height: 3px;
+      }
+      .toDo__actions {
+        opacity: 1;
+      }
+    }
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    .toDo__actions {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      > a {
+        margin-left: 0.5rem;
+        font-size: 1rem;
+      }
+    }
+
+    .toDo__tags {
+      position: relative;
+      > div {
+        position: absolute;
+        bottom: 0;
+        > span {
+          margin-right: 0.3rem;
+        }
+      }
+    }
+
+    .toDo__dateAdded {
+      bottom: 0.5rem;
+      right: 1rem;
+    }
+
+    h6 {
+      font-size: 0.8rem;
+    }
+
+    &.completed {
+      color: $light-grey;
+      .list-group-item-heading {
+        .toDo__title {
+          color: $light-grey;
+          margin-right: 10px;
+        }
+      }
+      &::after {
+        background: $dark-grey;
+      }
+      &:hover {
+        &::after {
+          background: $dark-grey;
+        }
+      }
+      .toDo__actions {
+        a {
+          color: $light-grey !important;
+        }
+      }
+
+      .badge {
+        background-color: $light-grey;
+      }
+    }
+  }
+}
+#category,
+#tags {
+  min-width: calc(100% - 40px);
+  > div:first-child,
+  > input {
+    border-top-left-radius: 1.25rem;
+    border-bottom-left-radius: 1.25rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.filters {
+  border-right: 1px solid #e3e3e4;
+  overflow: hidden;
+  overflow-y: auto;
+  height: 70vh;
+  &::-webkit-scrollbar {
+    width: 0px; /* remove scrollbar space */
+    background: transparent; /* optional: just make scrollbar invisible */
+  }
+  /* optional: show position indicator in red */
+  &::-webkit-scrollbar-thumb {
+    background: #fff;
+  }
+  .nav-link {
+    &.active {
+      font-weight: 700;
+    }
+  }
+
+  .tags-list {
+    margin-left: 0.3rem;
+    &.active > span {
+      background-color: $dark-grey;
+    }
+  }
+}
+
+.contact__list {
+  padding: 0;
+  > li {
+    list-style: none;
+    padding: 0.5rem;
+    border-bottom: 1px solid $light-grey;
+    > .row {
+      align-items: center;
+    }
+  }
+  .contact__actions {
+    text-align: right;
+    a {
+      margin-left: 0.5rem;
+      font-size: 1rem;
+    }
+  }
+}

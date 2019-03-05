@@ -14,6 +14,7 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_TODOS:
+      localStorage.setItem("todos", JSON.stringify(action.payload));
       return {
         ...state,
         todos: action.payload,

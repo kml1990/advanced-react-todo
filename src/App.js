@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Provider } from "react-redux";
-import "./styles/App.scss";
 
 import TodoContainer from "./components/TodoContainer";
 

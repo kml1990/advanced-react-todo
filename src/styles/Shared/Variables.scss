@@ -1,0 +1,21 @@
+@function v($var) {
+    @return var(--#{$var});
+}
+
+:root {
+    --primary: #000;
+    --bg: #fff;
+}
+
+// html {
+//     background: v(bg);
+//     color: v(primary);
+// }
+
+$light-grey: #d9d9d9;
+$dark-grey: #6C7A89;
+
+$primary-color: #6969B3;
+$secondary-color: #2cc1e5;
+
+$bg-gradient : linear-gradient(240deg, rgba(40, 72, 144, 0.2), rgba(0, 0, 200, 0));

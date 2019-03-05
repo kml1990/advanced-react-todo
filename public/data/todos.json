@@ -4,43 +4,9 @@
     "completed": false,
     "_id": "5bf6aef8cf3e22253c934a4f",
     "name": "Add edit mode",
-    "description": "preview todo when clicked\nedit when edit mode is clicked",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat cumque reprehenderit, est delectus similique atque nulla, id, eos non voluptate quo quos.",
     "tags": "[{\"value\":\"5be4bd513b4aee155870aea8\",\"label\":\"React\"},{\"value\":\"5be4bd633b4aee155870aea9\",\"label\":\"JavaScript\"}]",
     "dueDate": "2018-11-30T00:00:00.000Z",
-    "date": "2018-11-22T13:28:24.772Z",
-    "__v": 0
-  },
-  {
-    "category": "5be4359599e565743c180714",
-    "completed": false,
-    "_id": "5bebd55371562b365c69c074",
-    "name": "Links",
-    "description": "- https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76\n- https://medium.freecodecamp.org/all-the-fundamental-react-js-concepts-jammed-into-this-single-medium-article-c83f9b53eac2\n- https://medium.freecodecamp.org/rock-solid-react-js-foundations-a-beginners-guide-c45c93f5a923",
-    "tags": "[{\"value\":\"5be4bd513b4aee155870aea8\",\"label\":\"React\"},{\"value\":\"5be4bd633b4aee155870aea9\",\"label\":\"JavaScript\"}]",
-    "dueDate": "2018-11-18T00:00:00.000Z",
-    "date": "2018-11-14T07:57:07.016Z",
-    "__v": 0
-  },
-  {
-    "category": "5be4356999e565743c180713",
-    "completed": false,
-    "_id": "5be574053a6e6a1d6498e62a",
-    "name": "Test",
-    "description": "Line 59:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, u",
-    "tags": "[{\"value\":\"5be4bd993b4aee155870aeae\",\"label\":\"Microsoft\"},{\"value\":\"5be4bd773b4aee155870aeab\",\"label\":\"Vue\"}]",
-    "dueDate": "2018-11-17T00:00:00.000Z",
-    "date": "2018-11-09T11:48:21.459Z",
-    "__v": 0
-  },
-  {
-    "category": "5be437bd99e565743c180716",
-    "completed": false,
-    "_id": "5be5603c48d86d27dcc3eefd",
-    "name": "Example Todo",
-    "description": "Line 54:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles.",
-    "tags": "[{\"value\":\"5be4bd803b4aee155870aeac\",\"label\":\"DevTools\"},{\"value\":\"5be4bd6e3b4aee155870aeaa\",\"label\":\"Angular\"}]",
-    "dueDate": "2018-11-17T00:00:00.000Z",
-    "date": "2018-11-09T10:23:56.886Z",
-    "__v": 0
+    "date": "2018-11-22T13:28:24.772Z"
   }
 ]

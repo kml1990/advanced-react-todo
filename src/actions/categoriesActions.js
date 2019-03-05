@@ -9,7 +9,7 @@ import {
 
 export const getCategories = () => dispatch => {
   dispatch(setCategoriesLoading());
-  axios.get("/api/categories").then(res =>
+  axios.get("/data/categories.json").then(res =>
     dispatch({
       type: GET_CATEGORIES,
       payload: res.data
@@ -18,7 +18,7 @@ export const getCategories = () => dispatch => {
 };
 
 export const addCategory = category => dispatch => {
-  axios.post("/data/categories.json", category).then(res =>
+  axios.post("/data/categories", category).then(res =>
     dispatch({
       type: ADD_CATEGORY,
       payload: res.data

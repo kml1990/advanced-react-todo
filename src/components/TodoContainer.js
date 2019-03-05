@@ -64,7 +64,7 @@ class ToDo extends Component {
           <Col sm="3" className="filters">
             <Filters
               filter={this.state.filter}
-              controlFilter={this.controlFilter.bind(this)}
+              controlFilter={this.controlFilter}
             />
           </Col>
           <Col sm="9" className="todos">
@@ -94,7 +94,7 @@ class ToDo extends Component {
                 </ButtonDropdown>
               </Col>
             </Row>
-            <TodoList className="todoList" filter={this.state.filter} />
+            <TodoList filter={this.state.filter} />
           </Col>
         </Row>
       </Container>

@@ -1,0 +1,40 @@
+@import "./Variables.scss";
+@import "./Fade.scss";
+
+body {
+  color: #6c7a89;
+  background: linear-gradient(
+    240deg,
+    rgba(40, 72, 144, 0.2),
+    rgba(0, 0, 200, 0)
+  );
+  height: 100%;
+  min-height: 100vh;
+}
+
+.custom-fluid {
+  margin-top: 1rem;
+  width: 90%;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.show .custom-filter.dropdown-toggle,
+.custom-filter.dropdown-toggle,
+.show .custom-filter.dropdown-toggle:hover,
+.custom-filter.dropdown-toggle:hover,
+.show .custom-filter.dropdown-toggle:focus,
+.custom-filter.dropdown-toggle:focus,
+.show .custom-filter.dropdown-toggle:active,
+.custom-filter.dropdown-toggle:active {
+  padding: 3px 15px;
+  background: none !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  color: #6c7a89 !important;
+  box-shadow: none !important;
+}
