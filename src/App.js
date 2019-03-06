@@ -32,6 +32,7 @@ import AppNavbar from "./components/AppNavbar";
 
 class App extends Component {
   render() {
+    console.log("render in App");
     return (
       <div className="App">
         <Provider store={store}>

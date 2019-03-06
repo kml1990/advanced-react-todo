@@ -55,10 +55,11 @@ class TodoItem extends Component {
 
   render() {
     const todoItem = this.props.todoItem;
-    const categories = this.props.categories;
+    const { categories } = this.props.category;
+
     return (
       <div>
-        <CSSTransition timeout={500} classNames="fade">
+        <CSSTransition key={todoItem._id} timeout={500} classNames="fade">
           <ListGroupItem
             className={
               todoItem.completed
@@ -83,7 +84,11 @@ class TodoItem extends Component {
                 >
                   <FontAwesomeIcon icon="check" />
                 </a>
-                <a className="text-primary" href="#">
+                <a
+                  className="text-primary"
+                  href="#"
+                  onClick={this.props.editTodo.bind(this, todoItem)}
+                >
                   <FontAwesomeIcon icon="edit" />
                 </a>
                 <a
@@ -96,36 +101,40 @@ class TodoItem extends Component {
               </div>
             </ListGroupItemHeading>
             <ListGroupItemText className="truncate">
-              {todoItem.description}
+              {TodoItem.description}
             </ListGroupItemText>
             <div className="list-goup-item-footer">
               <Row>
                 <Col className="toDo__tags">
                   <div>
-                    {JSON.parse(todoItem.tags).map(tag => (
-                      <Badge key={tag.value} color="secondary">
-                        {tag.label}
-                      </Badge>
-                    ))}
+                    {todoItem.tags.length !== 0
+                      ? JSON.parse(todoItem.tags).map(tag => (
+                          <Badge key={tag.value} color="secondary">
+                            {tag.label}
+                          </Badge>
+                        ))
+                      : ""}
                   </div>
                 </Col>
-                <Col className="text-right">
-                  <h6 className={this.getDateState(todoItem.dueDate)}>
-                    <strong>Due: </strong>{" "}
-                    {new Intl.DateTimeFormat("en-GB", {
-                      year: "numeric",
-                      month: "short",
-                      day: "2-digit"
-                    }).format(new Date(todoItem.dueDate))}
-                  </h6>
-                  <h6>
-                    <strong>Added: </strong>{" "}
-                    {new Intl.DateTimeFormat("en-GB", {
-                      year: "numeric",
-                      month: "short",
-                      day: "2-digit"
-                    }).format(new Date(todoItem.date))}
-                  </h6>
+                <Col>
+                  <div className="text-right">
+                    <h6 className={this.getDateState(todoItem.dueDate)}>
+                      <strong>Due: </strong>{" "}
+                      {new Intl.DateTimeFormat("en-GB", {
+                        year: "numeric",
+                        month: "short",
+                        day: "2-digit"
+                      }).format(new Date(todoItem.dueDate))}
+                    </h6>
+                    <h6>
+                      <strong>Added: </strong>{" "}
+                      {new Intl.DateTimeFormat("en-GB", {
+                        year: "numeric",
+                        month: "short",
+                        day: "2-digit"
+                      }).format(new Date(todoItem.date))}
+                    </h6>
+                  </div>
                 </Col>
               </Row>
             </div>
@@ -137,13 +146,11 @@ class TodoItem extends Component {
 }
 
 TodoItem.propTypes = {
-  todo: PropTypes.object.isRequired,
   category: PropTypes.object.isRequired,
   tag: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  todo: state.todo,
   category: state.category,
   tag: state.tag
 });

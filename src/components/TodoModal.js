@@ -57,48 +57,52 @@ class TodoModal extends Component {
 
   onTodoSubmited = e => {
     e.preventDefault();
-    if(this.state.name === "") {
+    if (this.state.name === "") {
       this.setState({
         nameInvalid: true
-      })
+      });
     } else {
-      this.setState({
-        nameInvalid: false
-      }, () => {
-        const todo = {
-          _id: uuid(),
-          name: this.state.name,
-          description: this.state.description,
-          category: this.state.category,
-          tags: this.state.tags,
-          dueDate: new Date(this.state.dueDate),
-          date: new Date(),
-          completed: false
-        };
-        // Add todo via addTodo action
-        this.props.addTodo(todo);
-    
-        /* Close category modal */
-        this.props.toggleTodoModal();
-      })
+      this.setState(
+        {
+          nameInvalid: false
+        },
+        () => {
+          const todo = {
+            _id: uuid(),
+            name: this.state.name,
+            description: this.state.description,
+            category: this.state.category,
+            tags: this.state.tags,
+            dueDate: new Date(this.state.dueDate),
+            date: new Date(),
+            completed: false
+          };
+          // Add todo via addTodo action
+          this.props.addTodo(todo);
+
+          /* Close category modal */
+          this.props.toggleTodoModal();
+        }
+      );
     }
   };
 
-  componentWillUpdate(nextProps, nextState) {
-    console.log(nextProps.todoItem)
-    // if(this.props.todoItem != null) {
-    //   const {name, description, category, tags, dueDate} = this.props.todoItem;
-    //   this.setState({
-    //     name,
-    //     description,
-    //     category,
-    //     tags,
-    //     dueDate
-    //   });
-    // }
+  componentDidUpdate(prevProps, prevState) {
+    console.log("componentDidUpdate in TodoModal");
+    if (prevProps.todoItem != null) {
+      const { name, description, category, tags, dueDate } = prevProps.todoItem;
+      this.setState({
+        name: name,
+        description: description,
+        category: category,
+        tags: tags,
+        dueDate: dueDate
+      });
+    }
   }
-  
+
   render() {
+    console.log("render in TodoModal");
     const { categories } = this.props.category;
     const catOptions = categories.map(category => {
       return { value: category._id, label: category.name };
@@ -111,7 +115,10 @@ class TodoModal extends Component {
 
     return (
       <div>
-        <Modal isOpen={this.props.todoModal} toggle={this.props.toggleTodoModal}>
+        <Modal
+          isOpen={this.props.todoModal}
+          toggle={this.props.toggleTodoModal}
+        >
           <ModalHeader toggle={this.toggleToDo}>Add Todo</ModalHeader>
           <Form onSubmit={this.onTodoSubmited}>
             <ModalBody>
@@ -124,10 +131,11 @@ class TodoModal extends Component {
                       name="name"
                       id="name"
                       placeholder="Add todo name"
+                      value={this.state.name}
                       onChange={this.onInputChange}
                       invalid={this.state.nameInvalid}
-                      />
-                      <FormFeedback>This field is required</FormFeedback>
+                    />
+                    <FormFeedback>This field is required</FormFeedback>
                   </FormGroup>
                 </Col>
               </Row>
@@ -140,6 +148,7 @@ class TodoModal extends Component {
                       name="description"
                       id="description"
                       placeholder="Add todo descrption"
+                      value={this.state.description}
                       onChange={this.onInputChange}
                     />
                   </FormGroup>
@@ -158,7 +167,10 @@ class TodoModal extends Component {
                         options={catOptions}
                       />
                       <InputGroupAddon addonType="append">
-                        <Button color="secondary" onClick={this.props.toggleCategoryModal}>
+                        <Button
+                          color="secondary"
+                          onClick={this.props.toggleCategoryModal}
+                        >
                           <FontAwesomeIcon icon="plus" />
                         </Button>
                       </InputGroupAddon>
@@ -180,7 +192,10 @@ class TodoModal extends Component {
                         options={tagsOptions}
                       />
                       <InputGroupAddon addonType="append">
-                        <Button color="secondary" onClick={this.props.toggleTagModal}>
+                        <Button
+                          color="secondary"
+                          onClick={this.props.toggleTagModal}
+                        >
                           <FontAwesomeIcon icon="plus" />
                         </Button>
                       </InputGroupAddon>
@@ -197,6 +212,7 @@ class TodoModal extends Component {
                       name="dueDate"
                       id="dueDate"
                       placeholder="Add todo due date"
+                      value={new Date(this.state.dueDate)}
                       onChange={this.onInputChange}
                     />
                   </FormGroup>

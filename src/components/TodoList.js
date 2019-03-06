@@ -1,22 +1,14 @@
 import React, { Component } from "react";
-import {
-  ListGroup,
-  ListGroupItem,
-  ListGroupItemHeading,
-  ListGroupItemText,
-  Badge,
-  Row,
-  Col
-} from "reactstrap";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-
 import { deleteTodo, updateTodo } from "../actions/todoActions";
 
-class TodoList extends Component {
+import { ListGroup } from "reactstrap";
+import { TransitionGroup } from "react-transition-group";
 
+import TodoItem from "./TodoItem";
+
+class TodoList extends Component {
   onDeleteClick = id => {
     this.props.deleteTodo(id);
   };
@@ -74,89 +66,18 @@ class TodoList extends Component {
         return todo[type] === value;
       }
     });
-    //const { todos } = this.props.todo;
-    const { categories } = this.props.category;
 
+    console.log("render in TodoList");
     return (
       <ListGroup className="todo">
-      <TransitionGroup className="todo__list">
+        <TransitionGroup className="todo__list">
           {filteredToDos ? (
             filteredToDos.map(todo => (
-              <CSSTransition key={todo._id} timeout={500} classNames="fade">
-                <ListGroupItem
-                  className={
-                    todo.completed
-                      ? "toDo__list-item completed"
-                      : "toDo__list-item"
-                  }
-                >
-                  <ListGroupItemHeading>
-                    <span className="toDo__title">{todo.name}</span>{" "}
-                    <Badge color="secondary">
-                      {this.getCategoryName(todo.category, categories)}
-                    </Badge>
-                    <div className="float-right toDo__actions">
-                      <a
-                        className="text-primary"
-                        href="#"
-                        onClick={this.onCompleteClick.bind(
-                          this,
-                          todo,
-                          todo.completed
-                        )}
-                      >
-                        <FontAwesomeIcon icon="check" />
-                      </a>
-                      <a className="text-primary" href="#" onClick={this.props.editTodo.bind(this, todo)}>
-                        <FontAwesomeIcon icon="edit" />
-                      </a>
-                      <a
-                        className="text-primary"
-                        href="#"
-                        onClick={this.onDeleteClick.bind(this, todo._id)}
-                      >
-                        <FontAwesomeIcon icon="trash-alt" />
-                      </a>
-                    </div>
-                  </ListGroupItemHeading>
-                  <ListGroupItemText className="truncate">
-                    {todo.description}
-                  </ListGroupItemText>
-                  <div className="list-goup-item-footer">
-                    <Row>
-                      <Col className="toDo__tags">
-                        <div>
-                          {(todo.tags.length !== 0 ? JSON.parse(todo.tags).map(tag => (
-                            <Badge key={tag.value} color="secondary">
-                              {tag.label}
-                            </Badge>
-                          )) : "")}
-                        </div>
-                      </Col>
-                      <Col>
-                        <div className="text-right">
-                          <h6 className={this.getDateState(todo.dueDate)}>
-                            <strong>Due: </strong>{" "}
-                            {new Intl.DateTimeFormat("en-GB", {
-                              year: "numeric",
-                              month: "short",
-                              day: "2-digit"
-                            }).format(new Date(todo.dueDate))}
-                          </h6>
-                          <h6>
-                            <strong>Added: </strong>{" "}
-                            {new Intl.DateTimeFormat("en-GB", {
-                              year: "numeric",
-                              month: "short",
-                              day: "2-digit"
-                            }).format(new Date(todo.date))}
-                          </h6>
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
-                </ListGroupItem>
-              </CSSTransition>
+              <TodoItem
+                key={todo._id}
+                todoItem={todo}
+                editTodo={this.props.editTodo}
+              />
             ))
           ) : (
             <h1>No todos</h1>

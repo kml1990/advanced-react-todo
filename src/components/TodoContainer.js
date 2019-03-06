@@ -23,7 +23,7 @@ import { getCategories } from "../actions/categoriesActions";
 import { getTags } from "../actions/tagsActions";
 
 class ToDo extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
       todoModal: false,
@@ -36,10 +36,11 @@ class ToDo extends Component {
         current: "All"
       },
       dropdownOpen: false
-    }
+    };
   }
 
   componentDidMount() {
+    console.log("componentDidMount in todoContainer");
     this.props.getTodos();
     this.props.getCategories();
     this.props.getTags();
@@ -47,7 +48,8 @@ class ToDo extends Component {
 
   toggleTodoModal = () => {
     this.setState({
-      todoModal: !this.state.todoModal
+      todoModal: !this.state.todoModal,
+      todoItem: null
     });
   };
 
@@ -63,13 +65,16 @@ class ToDo extends Component {
     });
   };
 
-  editTodo = (todo) => {
-    this.setState({
-      todoItem: todo
-    }, () => {
-      this.toggleTodoModal();
-    });
-  }
+  editTodo = todo => {
+    this.setState(
+      {
+        todoItem: todo
+      },
+      () => {
+        this.toggleTodoModal();
+      }
+    );
+  };
 
   controlFilter = (type, value, current) => {
     const newFilter = { type, value, current };
@@ -85,6 +90,7 @@ class ToDo extends Component {
   };
 
   render() {
+    console.log("render in ToDoContainer");
     return (
       <Container fluid className="custom-fluid">
         <Row>
@@ -92,9 +98,9 @@ class ToDo extends Component {
             <h2 className="font-weight-light">Todo List</h2>
           </Col>
           <Col className="text-right">
-          <Button color="dark" onClick={this.toggleTodoModal}>
-            Add ToDo
-          </Button>
+            <Button color="dark" onClick={this.toggleTodoModal}>
+              Add ToDo
+            </Button>
           </Col>
         </Row>
         <hr />
@@ -103,8 +109,8 @@ class ToDo extends Component {
             <Filters
               filter={this.state.filter}
               controlFilter={this.controlFilter}
-              toggleCategoryModal={this.toggleCategoryModal} 
-              categoryModal={this.state.categoryModal} 
+              toggleCategoryModal={this.toggleCategoryModal}
+              categoryModal={this.state.categoryModal}
               toggleTagModal={this.toggleTagModal}
               tagModal={this.state.tagModal}
             />
@@ -139,9 +145,21 @@ class ToDo extends Component {
             <TodoList filter={this.state.filter} editTodo={this.editTodo} />
           </Col>
         </Row>
-        <TodoModal todoItem={this.state.todoItem} todoModal={this.state.todoModal} toggleTodoModal={this.toggleTodoModal} toggleCategoryModal={this.toggleCategoryModal} toggleTagModal={this.toggleTagModal}/>
-        <CategoryModal categoryModal={this.state.categoryModal} toggleCategoryModal={this.toggleCategoryModal} />
-        <TagModal tagModal={this.state.tagModal} toggleTagModal={this.toggleTagModal} />
+        <TodoModal
+          todoItem={this.state.todoItem}
+          todoModal={this.state.todoModal}
+          toggleTodoModal={this.toggleTodoModal}
+          toggleCategoryModal={this.toggleCategoryModal}
+          toggleTagModal={this.toggleTagModal}
+        />
+        <CategoryModal
+          categoryModal={this.state.categoryModal}
+          toggleCategoryModal={this.toggleCategoryModal}
+        />
+        <TagModal
+          tagModal={this.state.tagModal}
+          toggleTagModal={this.toggleTagModal}
+        />
       </Container>
     );
   }
