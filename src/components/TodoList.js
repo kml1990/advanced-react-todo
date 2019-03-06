@@ -107,7 +107,7 @@ class TodoList extends Component {
                       >
                         <FontAwesomeIcon icon="check" />
                       </a>
-                      <a className="text-primary" href="#">
+                      <a className="text-primary" href="#" onClick={this.props.editTodo.bind(this, todo)}>
                         <FontAwesomeIcon icon="edit" />
                       </a>
                       <a

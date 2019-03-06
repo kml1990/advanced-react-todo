@@ -3,6 +3,7 @@ import {
   Container,
   Row,
   Col,
+  Button,
   ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -25,8 +26,10 @@ class ToDo extends Component {
   constructor(){
     super();
     this.state = {
+      todoModal: false,
       categoryModal: false,
       tagModal: false,
+      todoItem: null,
       filter: {
         type: "general",
         value: "all",
@@ -35,6 +38,18 @@ class ToDo extends Component {
       dropdownOpen: false
     }
   }
+
+  componentDidMount() {
+    this.props.getTodos();
+    this.props.getCategories();
+    this.props.getTags();
+  }
+
+  toggleTodoModal = () => {
+    this.setState({
+      todoModal: !this.state.todoModal
+    });
+  };
 
   toggleCategoryModal = () => {
     this.setState({
@@ -48,10 +63,12 @@ class ToDo extends Component {
     });
   };
 
-  componentDidMount() {
-    this.props.getTodos();
-    this.props.getCategories();
-    this.props.getTags();
+  editTodo = (todo) => {
+    this.setState({
+      todoItem: todo
+    }, () => {
+      this.toggleTodoModal();
+    });
   }
 
   controlFilter = (type, value, current) => {
@@ -75,7 +92,9 @@ class ToDo extends Component {
             <h2 className="font-weight-light">Todo List</h2>
           </Col>
           <Col className="text-right">
-            <TodoModal toggleCategoryModal={this.toggleCategoryModal} toggleTagModal={this.toggleTagModal}/>
+          <Button color="dark" onClick={this.toggleTodoModal}>
+            Add ToDo
+          </Button>
           </Col>
         </Row>
         <hr />
@@ -117,9 +136,10 @@ class ToDo extends Component {
                 </ButtonDropdown>
               </Col>
             </Row>
-            <TodoList filter={this.state.filter} />
+            <TodoList filter={this.state.filter} editTodo={this.editTodo} />
           </Col>
         </Row>
+        <TodoModal todoItem={this.state.todoItem} todoModal={this.state.todoModal} toggleTodoModal={this.toggleTodoModal} toggleCategoryModal={this.toggleCategoryModal} toggleTagModal={this.toggleTagModal}/>
         <CategoryModal categoryModal={this.state.categoryModal} toggleCategoryModal={this.toggleCategoryModal} />
         <TagModal tagModal={this.state.tagModal} toggleTagModal={this.toggleTagModal} />
       </Container>

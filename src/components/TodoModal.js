@@ -27,25 +27,19 @@ import CategoryModal from "./CategoryModal";
 import TagModal from "./TagModal";
 
 class TodoModal extends Component {
-  state = {
-    todoModal: false,
-    catModal: false,
-    tagModal: false,
-    nameInvalid: false,
-    name: "",
-    description: "",
-    category: "",
-    tags: [],
-    dueDate: new Date()
-  };
+  constructor() {
+    super();
+    this.state = {
+      nameInvalid: false,
+      name: "",
+      description: "",
+      category: "",
+      tags: [],
+      dueDate: new Date()
+    };
+  }
 
-  toggleTodoModal = () => {
-    this.setState({
-      todoModal: !this.state.todoModal
-    });
-  };
-
-  onChange = e => {
+  onInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -85,11 +79,25 @@ class TodoModal extends Component {
         this.props.addTodo(todo);
     
         /* Close category modal */
-        this.toggleTodoModal();
+        this.props.toggleTodoModal();
       })
     }
   };
 
+  componentWillUpdate(nextProps, nextState) {
+    console.log(nextProps.todoItem)
+    // if(this.props.todoItem != null) {
+    //   const {name, description, category, tags, dueDate} = this.props.todoItem;
+    //   this.setState({
+    //     name,
+    //     description,
+    //     category,
+    //     tags,
+    //     dueDate
+    //   });
+    // }
+  }
+  
   render() {
     const { categories } = this.props.category;
     const catOptions = categories.map(category => {
@@ -103,11 +111,7 @@ class TodoModal extends Component {
 
     return (
       <div>
-        <Button color="dark" onClick={this.toggleTodoModal}>
-          Add ToDo
-        </Button>
-
-        <Modal isOpen={this.state.todoModal} toggle={this.toggleToDo}>
+        <Modal isOpen={this.props.todoModal} toggle={this.props.toggleTodoModal}>
           <ModalHeader toggle={this.toggleToDo}>Add Todo</ModalHeader>
           <Form onSubmit={this.onTodoSubmited}>
             <ModalBody>
@@ -120,7 +124,7 @@ class TodoModal extends Component {
                       name="name"
                       id="name"
                       placeholder="Add todo name"
-                      onChange={this.onChange}
+                      onChange={this.onInputChange}
                       invalid={this.state.nameInvalid}
                       />
                       <FormFeedback>This field is required</FormFeedback>
@@ -136,7 +140,7 @@ class TodoModal extends Component {
                       name="description"
                       id="description"
                       placeholder="Add todo descrption"
-                      onChange={this.onChange}
+                      onChange={this.onInputChange}
                     />
                   </FormGroup>
                 </Col>
@@ -193,7 +197,7 @@ class TodoModal extends Component {
                       name="dueDate"
                       id="dueDate"
                       placeholder="Add todo due date"
-                      onChange={this.onChange}
+                      onChange={this.onInputChange}
                     />
                   </FormGroup>
                 </Col>
@@ -203,7 +207,7 @@ class TodoModal extends Component {
               <Button color="primary" onClick={this.addNewTodo}>
                 Add To Do
               </Button>
-              <Button color="secondary" onClick={this.toggleToDo}>
+              <Button color="secondary" onClick={this.props.toggleTodoModal}>
                 Cancel
               </Button>
             </ModalFooter>
