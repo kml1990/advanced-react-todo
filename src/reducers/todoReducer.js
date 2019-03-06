@@ -3,7 +3,8 @@ import {
   ADD_TODO,
   DELETE_TODO,
   UPDATE_TODO,
-  TODOS_LOADING
+  TODOS_LOADING,
+  FILTER_TODO
 } from "../actions/types.js";
 
 const initialState = {
@@ -44,6 +45,11 @@ export default function(state = initialState, action) {
             ...action.item
           };
         })
+      };
+    case FILTER_TODO:
+      return {
+        ...state,
+        todos: action.payload
       };
     case TODOS_LOADING:
       return {

@@ -36,7 +36,7 @@ class ToDo extends Component {
   };
 
   controlFilter = (type, value, current) => {
-    var newFilter = { type, value, current };
+    const newFilter = { type, value, current };
     this.setState({
       filter: newFilter
     });

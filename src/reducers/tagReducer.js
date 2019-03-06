@@ -2,7 +2,6 @@ import {
   GET_TAGS,
   ADD_TAG,
   DELETE_TAG,
-  UPDATE_TAG,
   TAGS_LOADING
 } from "../actions/types.js";
 
@@ -29,11 +28,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         tags: state.tags.filter(tag => tag._id !== action.payload)
-      };
-    case UPDATE_TAG:
-      return {
-        ...state,
-        tags: [action.payload, ...state.tags]
       };
     case TAGS_LOADING:
       return {

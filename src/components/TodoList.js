@@ -57,15 +57,15 @@ class ToDoList extends Component {
   render() {
     const { todos } = this.props.todo;
     let filteredToDos = todos.filter(todo => {
-      var type = this.props.filter.type;
-      var value = this.props.filter.value;
+      let type = this.props.filter.type;
+      let value = this.props.filter.value;
       if (type === "general" && value === "all") {
         // return all
         return todo;
       } else if (type === "tag") {
         // search by tags
-        var tags = JSON.parse(todo.tags);
-        var hasTag = tags.filter(x => x.value === value).length !== 0;
+        let tags = JSON.parse(todo.tags);
+        let hasTag = tags.filter(x => x.value === value).length !== 0;
         if (hasTag) {
           return todo;
         }
@@ -75,7 +75,6 @@ class ToDoList extends Component {
     });
     //const { todos } = this.props.todo;
     const { categories } = this.props.category;
-    const { tags } = this.props.tag;
 
     return (
       <ListGroup className="todo">

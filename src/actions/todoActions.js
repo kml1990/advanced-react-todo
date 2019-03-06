@@ -4,6 +4,7 @@ import {
   ADD_TODO,
   DELETE_TODO,
   UPDATE_TODO,
+  FILTER_TODO,
   TODOS_LOADING
 } from "./types.js";
 
@@ -62,6 +63,30 @@ export const updateTodo = updatedTodo => dispatch => {
   dispatch({
     type: UPDATE_TODO,
     payload: updatedTodos
+  });
+};
+
+export const filterTodos = (type, value) => dispatch => {
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+  const filteredTodos = todos.filter(todo => {
+    if (type === "general" && value === "all") {
+      // return all
+      return todo;
+    } else if (type === "tag") {
+      // search by tags
+      let tags = JSON.parse(todo.tags);
+      let hasTag = tags.filter(x => x.value === value).length !== 0;
+      if (hasTag) {
+        return todo;
+      }
+    } else {
+      return todo[type] === value;
+    }
+  });
+
+  dispatch({
+    type: FILTER_TODO,
+    payload: filteredTodos
   });
 };
 

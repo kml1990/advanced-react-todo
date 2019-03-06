@@ -2,7 +2,6 @@ import {
   GET_CATEGORIES,
   ADD_CATEGORY,
   DELETE_CATEGORY,
-  UPDATE_CATEGORY,
   CATEGORIES_LOADING
 } from "../actions/types.js";
 
@@ -31,11 +30,6 @@ export default function(state = initialState, action) {
         categories: state.categories.filter(
           category => category._id !== action.payload
         )
-      };
-    case UPDATE_CATEGORY:
-      return {
-        ...state,
-        categories: [action.payload, ...state.categories]
       };
     case CATEGORIES_LOADING:
       return {
