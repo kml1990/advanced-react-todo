@@ -10,6 +10,7 @@ import {
   ModalFooter,
   Form,
   FormGroup,
+  FormFeedback,
   Label,
   Input,
   ListGroup,
@@ -19,6 +20,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { addCategory, deleteCategory } from "../actions/categoriesActions";
+import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 
 class CategoryModal extends Component {
 
@@ -26,8 +28,9 @@ class CategoryModal extends Component {
     super();
     this.state = {
       catCollapse: false,
+      nameInvalid: false,
       name: "",
-      description: ""
+      description: "",
     };
   }
   
@@ -43,19 +46,28 @@ class CategoryModal extends Component {
   };
 
 
-  addNewCategory = e => {
+  onCategorySubmited = e => {
     e.preventDefault();
-
-    const newCategory = {
-      _id: uuid(),
-      name: this.state.name,
-      description: this.state.description
-    };
-    // Add todo via newCategory action
-    this.props.addCategory(newCategory);
-
-    /* Close category modal */
-    this.props.toggleCategoryModal();
+    if(this.state.name === "") {
+      this.setState({
+        nameInvalid: true
+      })
+    } else {
+      this.setState({
+        nameInvalid: false
+      }, () => {
+        const category = {
+          _id: uuid(),
+          name: this.state.name,
+          description: this.state.description
+        };
+        // Add todo via newCategory action
+        this.props.addCategory(category);
+    
+        /* Close category modal */
+        this.props.toggleCategoryModal();
+      })
+    }
   };
 
   onDeleteCategory = id => {
@@ -66,18 +78,20 @@ class CategoryModal extends Component {
     const { categories } = this.props.category;
     return (
       <Modal isOpen={this.props.categoryModal} toggle={this.props.toggleCategoryModal}>
-        <Form>
+        <Form onSubmit={this.onCategorySubmited}>
           <ModalHeader>Add Category </ModalHeader>
           <ModalBody>
             <FormGroup>
-              <Label for="name">Name</Label>
+              <Label for="name">Name*</Label>
               <Input
                 type="text"
                 name="name"
                 id="name"
                 placeholder="Add category name"
                 onChange={this.onChange}
+                invalid={this.state.nameInvalid}
               />
+              <FormFeedback>This field is required</FormFeedback>
             </FormGroup>
             <FormGroup>
               <Label for="description">Description</Label>
@@ -112,7 +126,7 @@ class CategoryModal extends Component {
             <Button color="primary" onClick={this.toggleCategoryCollapse}>
               Show/Edit existing categories
             </Button>
-            <Button color="primary" onClick={this.addNewCategory}>
+            <Button color="primary" type="submit">
               Add Category
             </Button>
             <Button color="secondary" onClick={this.props.toggleCategoryModal}>

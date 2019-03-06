@@ -37,7 +37,6 @@ class ToDo extends Component {
   }
 
   toggleCategoryModal = () => {
-    console.log('change')
     this.setState({
       categoryModal: !this.state.categoryModal
     });

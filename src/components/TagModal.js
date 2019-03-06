@@ -10,6 +10,7 @@ import {
   ModalFooter,
   Form,
   FormGroup,
+  FormFeedback,
   Label,
   Input,
   ListGroup,
@@ -23,6 +24,7 @@ import { addTag, deleteTag } from "../actions/tagsActions";
 class TagModal extends Component {
   state = {
     tagCollapse: false,
+    nameInvalid: false,
     name: "",
     description: ""
   };
@@ -37,19 +39,28 @@ class TagModal extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  addNewTag = e => {
+  onTagSubmited = e => {
     e.preventDefault();
-
-    const newTag = {
-      _id: uuid(),
-      name: this.state.name,
-      description: this.state.description
-    };
-    // Add todo via newTag action
-    this.props.addTag(newTag);
-
-    // Close tag modal
-    this.props.toggleTagModal();
+    if(this.state.name === "") {
+      this.setState({
+        nameInvalid: true
+      })
+    } else {
+      this.setState({
+        nameInvalid: false
+      }, () => {
+        const newTag = {
+          _id: uuid(),
+          name: this.state.name,
+          description: this.state.description
+        };
+        // Add todo via newCategory action
+        this.props.addTag(newTag);
+    
+        /* Close category modal */
+        this.props.toggleTagModal();
+      })
+    }
   };
 
   onDeleteTag = id => {
@@ -60,18 +71,20 @@ class TagModal extends Component {
     const { tags } = this.props.tag;
     return (
       <Modal isOpen={this.props.tagModal} toggle={this.props.toggleTagModal}>
-        <Form>
+        <Form onSubmit={this.onTagSubmited}>
           <ModalHeader>Add Tag </ModalHeader>
           <ModalBody>
             <FormGroup>
-              <Label for="name">Name</Label>
+              <Label for="name">Name*</Label>
               <Input
                 type="text"
                 name="name"
                 id="name"
                 placeholder="Add tag name"
                 onChange={this.onChange}
+                invalid={this.state.nameInvalid}
               />
+              <FormFeedback>This field is required</FormFeedback>
             </FormGroup>
             <FormGroup>
               <Label for="description">Description</Label>
@@ -106,7 +119,7 @@ class TagModal extends Component {
             <Button color="primary" onClick={this.toggleTagCollapse}>
               Show/Edit existing tags
             </Button>
-            <Button color="primary" onClick={this.addNewTag}>
+            <Button color="primary" type="submit">
               Add Tag
             </Button>
             <Button color="secondary" onClick={this.props.toggleTagModal}>

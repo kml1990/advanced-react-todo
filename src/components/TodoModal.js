@@ -9,6 +9,7 @@ import {
   ModalFooter,
   Form,
   FormGroup,
+  FormFeedback,
   Label,
   Input,
   Row,
@@ -30,6 +31,7 @@ class TodoModal extends Component {
     todoModal: false,
     catModal: false,
     tagModal: false,
+    nameInvalid: false,
     name: "",
     description: "",
     category: "",
@@ -37,7 +39,7 @@ class TodoModal extends Component {
     dueDate: new Date()
   };
 
-  toggleToDo = () => {
+  toggleTodoModal = () => {
     this.setState({
       todoModal: !this.state.todoModal
     });
@@ -59,24 +61,33 @@ class TodoModal extends Component {
     });
   };
 
-  addNewTodo = e => {
+  onTodoSubmited = e => {
     e.preventDefault();
-
-    const newTodo = {
-      _id: uuid(),
-      name: this.state.name,
-      description: this.state.description,
-      category: this.state.category,
-      tags: this.state.tags,
-      dueDate: new Date(this.state.dueDate),
-      date: new Date(),
-      completed: false
-    };
-    // Add todo via addTodo action
-    this.props.addTodo(newTodo);
-
-    // Close todoModal
-    this.toggleToDo();
+    if(this.state.name === "") {
+      this.setState({
+        nameInvalid: true
+      })
+    } else {
+      this.setState({
+        nameInvalid: false
+      }, () => {
+        const todo = {
+          _id: uuid(),
+          name: this.state.name,
+          description: this.state.description,
+          category: this.state.category,
+          tags: this.state.tags,
+          dueDate: new Date(this.state.dueDate),
+          date: new Date(),
+          completed: false
+        };
+        // Add todo via addTodo action
+        this.props.addTodo(todo);
+    
+        /* Close category modal */
+        this.toggleTodoModal();
+      })
+    }
   };
 
   render() {
@@ -92,25 +103,27 @@ class TodoModal extends Component {
 
     return (
       <div>
-        <Button color="dark" onClick={this.toggleToDo}>
+        <Button color="dark" onClick={this.toggleTodoModal}>
           Add ToDo
         </Button>
 
         <Modal isOpen={this.state.todoModal} toggle={this.toggleToDo}>
           <ModalHeader toggle={this.toggleToDo}>Add Todo</ModalHeader>
-          <Form>
+          <Form onSubmit={this.onTodoSubmited}>
             <ModalBody>
               <Row>
                 <Col>
                   <FormGroup>
-                    <Label for="name">Name</Label>
+                    <Label for="name">Name*</Label>
                     <Input
                       type="text"
                       name="name"
                       id="name"
                       placeholder="Add todo name"
                       onChange={this.onChange}
-                    />
+                      invalid={this.state.nameInvalid}
+                      />
+                      <FormFeedback>This field is required</FormFeedback>
                   </FormGroup>
                 </Col>
               </Row>

@@ -126,11 +126,11 @@ class TodoList extends Component {
                     <Row>
                       <Col className="toDo__tags">
                         <div>
-                          {JSON.parse(todo.tags).map(tag => (
+                          {(todo.tags.length !== 0 ? JSON.parse(todo.tags).map(tag => (
                             <Badge key={tag.value} color="secondary">
                               {tag.label}
                             </Badge>
-                          ))}
+                          )) : "")}
                         </div>
                       </Col>
                       <Col>
