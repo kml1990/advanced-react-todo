@@ -43,18 +43,6 @@ class TodoModal extends Component {
     });
   };
 
-  toggleCat = () => {
-    this.setState({
-      catModal: !this.state.catModal
-    });
-  };
-
-  toggleTag = () => {
-    this.setState({
-      tagModal: !this.state.tagModal
-    });
-  };
-
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -153,15 +141,11 @@ class TodoModal extends Component {
                         options={catOptions}
                       />
                       <InputGroupAddon addonType="append">
-                        <Button color="secondary" onClick={this.toggleCat}>
+                        <Button color="secondary" onClick={this.props.toggleCategoryModal}>
                           <FontAwesomeIcon icon="plus" />
                         </Button>
                       </InputGroupAddon>
                     </InputGroup>
-                    <CategoryModal
-                      catModal={this.state.catModal}
-                      toggleCat={this.toggleCat.bind(this)}
-                    />
                   </FormGroup>
                 </Col>
               </Row>
@@ -179,15 +163,11 @@ class TodoModal extends Component {
                         options={tagsOptions}
                       />
                       <InputGroupAddon addonType="append">
-                        <Button color="secondary" onClick={this.toggleTag}>
+                        <Button color="secondary" onClick={this.props.toggleTagModal}>
                           <FontAwesomeIcon icon="plus" />
                         </Button>
                       </InputGroupAddon>
                     </InputGroup>
-                    <TagModal
-                      tagModal={this.state.tagModal}
-                      toggleCat={this.toggleTag.bind(this)}
-                    />
                   </FormGroup>
                 </Col>
               </Row>

@@ -37,10 +37,6 @@ class TagModal extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onToggleTag = () => {
-    this.props.toggleCat(this.state.tagModal);
-  };
-
   addNewTag = e => {
     e.preventDefault();
 
@@ -52,8 +48,8 @@ class TagModal extends Component {
     // Add todo via newTag action
     this.props.addTag(newTag);
 
-    // Close todoModal
-    this.onToggleTag();
+    // Close tag modal
+    this.props.toggleTagModal();
   };
 
   onDeleteTag = id => {
@@ -63,7 +59,7 @@ class TagModal extends Component {
   render() {
     const { tags } = this.props.tag;
     return (
-      <Modal isOpen={this.props.tagModal} toggle={this.onToggleTag}>
+      <Modal isOpen={this.props.tagModal} toggle={this.props.toggleTagModal}>
         <Form>
           <ModalHeader>Add Tag </ModalHeader>
           <ModalBody>
@@ -113,7 +109,7 @@ class TagModal extends Component {
             <Button color="primary" onClick={this.addNewTag}>
               Add Tag
             </Button>
-            <Button color="secondary" onClick={this.onToggleTag}>
+            <Button color="secondary" onClick={this.props.toggleTagModal}>
               Close
             </Button>
           </ModalFooter>

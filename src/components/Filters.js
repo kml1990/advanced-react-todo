@@ -66,9 +66,6 @@ class Filters extends Component {
               </span>
             </NavLink>
           </NavItem>
-          {/* <NavItem>
-                        <NavLink href="#" onClick={() => this.onFilterChange("completed", "false")}>Starred <span className="float-right"><Badge pill>0</Badge></span></NavLink>
-                    </NavItem> */}
           <NavItem>
             <NavLink
               href="#"
@@ -87,7 +84,7 @@ class Filters extends Component {
         <hr />
         <p>
           <FontAwesomeIcon icon="sitemap" /> Categories{" "}
-          <a href="#" className="float-right">
+          <a href="#" className="float-right" onClick={this.props.toggleCategoryModal}>
             <FontAwesomeIcon size="sm" icon="plus" />
           </a>
         </p>
@@ -112,7 +109,7 @@ class Filters extends Component {
         <hr />
         <p>
           <FontAwesomeIcon icon="tags" /> Tags{" "}
-          <a href="#" className="float-right">
+          <a href="#" className="float-right" onClick={this.props.toggleTagModal}>
             <FontAwesomeIcon size="sm" icon="plus" />
           </a>
         </p>

@@ -15,7 +15,8 @@ import PropTypes from "prop-types";
 
 import { deleteTodo, updateTodo } from "../actions/todoActions";
 
-class ToDoList extends Component {
+class TodoList extends Component {
+
   onDeleteClick = id => {
     this.props.deleteTodo(id);
   };
@@ -47,7 +48,7 @@ class ToDoList extends Component {
 
     if (dueDate.getTime() > today.getTime()) {
       return "text-primary";
-    } else if (dueDate.getTime() == today.getTime()) {
+    } else if (dueDate.getTime() === today.getTime()) {
       return "text-warning";
     } else {
       return "text-danger";
@@ -78,7 +79,7 @@ class ToDoList extends Component {
 
     return (
       <ListGroup className="todo">
-        <TransitionGroup className="todo__list">
+      <TransitionGroup className="todo__list">
           {filteredToDos ? (
             filteredToDos.map(todo => (
               <CSSTransition key={todo._id} timeout={500} classNames="fade">
@@ -166,7 +167,7 @@ class ToDoList extends Component {
   }
 }
 
-ToDoList.propTypes = {
+TodoList.propTypes = {
   todo: PropTypes.object.isRequired,
   category: PropTypes.object.isRequired,
   tag: PropTypes.object.isRequired
@@ -181,4 +182,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { deleteTodo, updateTodo }
-)(ToDoList);
+)(TodoList);

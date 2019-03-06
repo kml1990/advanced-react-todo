@@ -21,11 +21,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addCategory, deleteCategory } from "../actions/categoriesActions";
 
 class CategoryModal extends Component {
-  state = {
-    catCollapse: false,
-    name: "",
-    description: ""
-  };
+
+  constructor() {
+    super();
+    this.state = {
+      catCollapse: false,
+      name: "",
+      description: ""
+    };
+  }
+  
 
   toggleCategoryCollapse = () => {
     this.setState({
@@ -37,9 +42,6 @@ class CategoryModal extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onToggleCat = () => {
-    this.props.toggleCat(this.state.catModal);
-  };
 
   addNewCategory = e => {
     e.preventDefault();
@@ -52,8 +54,8 @@ class CategoryModal extends Component {
     // Add todo via newCategory action
     this.props.addCategory(newCategory);
 
-    // Close todoModal
-    this.onToggleCat();
+    /* Close category modal */
+    this.props.toggleCategoryModal();
   };
 
   onDeleteCategory = id => {
@@ -63,7 +65,7 @@ class CategoryModal extends Component {
   render() {
     const { categories } = this.props.category;
     return (
-      <Modal isOpen={this.props.catModal} toggle={this.onToggleCat}>
+      <Modal isOpen={this.props.categoryModal} toggle={this.props.toggleCategoryModal}>
         <Form>
           <ModalHeader>Add Category </ModalHeader>
           <ModalBody>
@@ -113,7 +115,7 @@ class CategoryModal extends Component {
             <Button color="primary" onClick={this.addNewCategory}>
               Add Category
             </Button>
-            <Button color="secondary" onClick={this.onToggleCat}>
+            <Button color="secondary" onClick={this.props.toggleCategoryModal}>
               Close
             </Button>
           </ModalFooter>

@@ -14,26 +14,46 @@ import { connect } from "react-redux";
 import Filters from "./Filters";
 import TodoList from "./TodoList";
 import TodoModal from "./TodoModal";
+import CategoryModal from "./CategoryModal";
+import TagModal from "./TagModal";
 
 import { getTodos } from "../actions/todoActions";
 import { getCategories } from "../actions/categoriesActions";
 import { getTags } from "../actions/tagsActions";
 
 class ToDo extends Component {
+  constructor(){
+    super();
+    this.state = {
+      categoryModal: false,
+      tagModal: false,
+      filter: {
+        type: "general",
+        value: "all",
+        current: "All"
+      },
+      dropdownOpen: false
+    }
+  }
+
+  toggleCategoryModal = () => {
+    console.log('change')
+    this.setState({
+      categoryModal: !this.state.categoryModal
+    });
+  };
+
+  toggleTagModal = () => {
+    this.setState({
+      tagModal: !this.state.tagModal
+    });
+  };
+
   componentDidMount() {
     this.props.getTodos();
     this.props.getCategories();
     this.props.getTags();
   }
-
-  state = {
-    filter: {
-      type: "general",
-      value: "all",
-      current: "All"
-    },
-    dropdownOpen: false
-  };
 
   controlFilter = (type, value, current) => {
     const newFilter = { type, value, current };
@@ -56,7 +76,7 @@ class ToDo extends Component {
             <h2 className="font-weight-light">Todo List</h2>
           </Col>
           <Col className="text-right">
-            <TodoModal />
+            <TodoModal toggleCategoryModal={this.toggleCategoryModal} toggleTagModal={this.toggleTagModal}/>
           </Col>
         </Row>
         <hr />
@@ -65,6 +85,10 @@ class ToDo extends Component {
             <Filters
               filter={this.state.filter}
               controlFilter={this.controlFilter}
+              toggleCategoryModal={this.toggleCategoryModal} 
+              categoryModal={this.state.categoryModal} 
+              toggleTagModal={this.toggleTagModal}
+              tagModal={this.state.tagModal}
             />
           </Col>
           <Col sm="9">
@@ -97,6 +121,8 @@ class ToDo extends Component {
             <TodoList filter={this.state.filter} />
           </Col>
         </Row>
+        <CategoryModal categoryModal={this.state.categoryModal} toggleCategoryModal={this.toggleCategoryModal} />
+        <TagModal tagModal={this.state.tagModal} toggleTagModal={this.toggleTagModal} />
       </Container>
     );
   }
