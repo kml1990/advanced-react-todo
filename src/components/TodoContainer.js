@@ -67,7 +67,7 @@ class ToDo extends Component {
               controlFilter={this.controlFilter}
             />
           </Col>
-          <Col sm="9" className="todos">
+          <Col sm="9">
             <Row>
               <Col>
                 <p>

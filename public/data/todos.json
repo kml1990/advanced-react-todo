@@ -1,10 +1,60 @@
 [
   {
+    "_id": "5bf6aef8cf3e22d53c934a4a",
     "category": "5be4359599e565743c180714",
     "completed": false,
+    "name": "Comments in tasks",
+    "description": "Be able to add comments to tasks.",
+    "tags": "[{\"value\":\"5be4bd513b4aee155870aea8\",\"label\":\"React\"},{\"value\":\"5be4bd633b4aee155870aea9\",\"label\":\"JavaScript\"}]",
+    "dueDate": "2018-11-30T00:00:00.000Z",
+    "date": "2018-11-22T13:28:24.772Z"
+  },
+  {
     "_id": "5bf6aef8cf3e22253c934a4f",
+    "category": "5be4359599e565743c180714",
+    "completed": false,
     "name": "Add edit mode",
-    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat cumque reprehenderit, est delectus similique atque nulla, id, eos non voluptate quo quos.",
+    "description": "Be able to edit tasks.",
+    "tags": "[{\"value\":\"5be4bd513b4aee155870aea8\",\"label\":\"React\"},{\"value\":\"5be4bd633b4aee155870aea9\",\"label\":\"JavaScript\"}]",
+    "dueDate": "2018-11-30T00:00:00.000Z",
+    "date": "2018-11-22T13:28:24.772Z"
+  },
+  {
+    "_id": "5bf6aef8cf3e2225ac934a4f",
+    "category": "5be437bd99e565743c180716",
+    "completed": false,
+    "name": "Add user accounts",
+    "description": "Add login capabilities to the system.",
+    "tags": "[{\"value\":\"5be4bd513b4aee155870aea8\",\"label\":\"React\"},{\"value\":\"5be4bd633b4aee155870aea9\",\"label\":\"JavaScript\"}]",
+    "dueDate": "2018-11-30T00:00:00.000Z",
+    "date": "2018-11-22T13:28:24.772Z"
+  },
+  {
+    "_id": "5bfsaef8cf3e2225ac934a4f",
+    "category": "5be4359599e565743c180714",
+    "completed": false,
+    "name": "Share tasks to others",
+    "description": "Being able to share tasks to other users.",
+    "tags": "[{\"value\":\"5be4bd513b4aee155870aea8\",\"label\":\"React\"},{\"value\":\"5be4bd633b4aee155870aea9\",\"label\":\"JavaScript\"}]",
+    "dueDate": "2018-11-30T00:00:00.000Z",
+    "date": "2018-11-22T13:28:24.772Z"
+  },
+  {
+    "_id": "5bfsaef8cf3e2225acc34a4f",
+    "category": "5be4356999e565743c180713",
+    "completed": false,
+    "name": "Archive tasks",
+    "description": "Being able to archive tasks.",
+    "tags": "[{\"value\":\"5be4bd513b4aee155870aea8\",\"label\":\"React\"},{\"value\":\"5be4bd633b4aee155870aea9\",\"label\":\"JavaScript\"}]",
+    "dueDate": "2018-11-30T00:00:00.000Z",
+    "date": "2018-11-22T13:28:24.772Z"
+  },
+  {
+    "_id": "5bfsaef8cf3e2225ac934aaa",
+    "category": "5be4359599e565743c180714",
+    "completed": false,
+    "name": "Add subtasks",
+    "description": "Being able to add  subtasks.",
     "tags": "[{\"value\":\"5be4bd513b4aee155870aea8\",\"label\":\"React\"},{\"value\":\"5be4bd633b4aee155870aea9\",\"label\":\"JavaScript\"}]",
     "dueDate": "2018-11-30T00:00:00.000Z",
     "date": "2018-11-22T13:28:24.772Z"

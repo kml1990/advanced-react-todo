@@ -8,15 +8,9 @@
   }
 }
 
-.todos {
-  border-right: 1px solid #e3e3e4;
-  height: 70vh;
-}
-
 .todo {
   overflow: hidden;
   overflow-y: auto;
-  height: calc(70vh - 2.5rem);
   &::-webkit-scrollbar {
     width: 0px; /* remove scrollbar space */
     background: transparent; /* optional: just make scrollbar invisible */
