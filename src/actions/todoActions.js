@@ -52,7 +52,7 @@ export const deleteTodo = id => dispatch => {
 
 export const updateTodo = updatedTodo => dispatch => {
   const todos = JSON.parse(localStorage.getItem("todos")) || [];
-  const updatedTodos = todos.map(todo => {
+  const updatedTodos = todos.map( (todo, index) => {
     if (todo._id === updatedTodo._id) {
       return (todo = updatedTodo);
     }
@@ -62,7 +62,7 @@ export const updateTodo = updatedTodo => dispatch => {
 
   dispatch({
     type: UPDATE_TODO,
-    payload: updatedTodos
+    payload: updatedTodo
   });
 };
 

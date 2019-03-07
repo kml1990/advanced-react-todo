@@ -21,37 +21,48 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Select from "react-select";
 import uuid from "uuid";
 
-import { addTodo } from "../actions/todoActions";
-
-import CategoryModal from "./CategoryModal";
-import TagModal from "./TagModal";
+import { addTodo, updateTodo } from "../actions/todoActions";
 
 class TodoModal extends Component {
   constructor() {
     super();
+    console.log('constructor')
+    
     this.state = {
       nameInvalid: false,
-      name: "",
-      description: "",
-      category: "",
-      tags: [],
-      dueDate: new Date()
+      todoItem: {
+        _id: null,
+        name: "",
+        description: "",
+        category: null,
+        tags: [],
+        dueDate: new Date(),
+        date: null,
+        completed: null
+      }
     };
   }
 
   onInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    let todoItem = Object.assign({}, this.state.todoItem);    //creating copy of object
+    todoItem[e.target.name] = e.target.value;      
+  
+    this.setState({ todoItem });
   };
 
   onCategoryChange = e => {
+    let todoItem = Object.assign({}, this.state.todoItem);    //creating copy of object
+    todoItem.category = e.value;      
     this.setState({
-      category: e.value
+      todoItem
     });
   };
 
   onTagsChange = e => {
+    let todoItem = Object.assign({}, this.state.todoItem);    //creating copy of object
+    todoItem.tags = JSON.stringify(e);      
     this.setState({
-      tags: JSON.stringify(e)
+      todoItem
     });
   };
 
@@ -67,18 +78,25 @@ class TodoModal extends Component {
           nameInvalid: false
         },
         () => {
+          const {_id, name, description, category, tags, dueDate, date, completed} = this.state.todoItem;
           const todo = {
-            _id: uuid(),
-            name: this.state.name,
-            description: this.state.description,
-            category: this.state.category,
-            tags: this.state.tags,
-            dueDate: new Date(this.state.dueDate),
-            date: new Date(),
-            completed: false
+            _id: _id == null ? uuid() : _id,
+            name,
+            description,
+            category,
+            tags,
+            dueDate: new Date(dueDate),
+            date: date == null ? new Date() : new Date(date),
+            completed: completed == null ? false : completed
           };
           // Add todo via addTodo action
-          this.props.addTodo(todo);
+          if(this.state.todoItem._id === null){
+            console.log('add')
+            this.props.addTodo(todo);
+          } else {
+            console.log('update')
+            this.props.updateTodo(todo);
+          }
 
           /* Close category modal */
           this.props.toggleTodoModal();
@@ -87,16 +105,39 @@ class TodoModal extends Component {
     }
   };
 
+  onTodoModalClose = () => {
+    this.setState({
+      todoItem: {
+        _id: null,
+        name: "",
+        description: "",
+        category: "",
+        tags: [],
+        dueDate: new Date(),
+        date: null,
+        completed: null
+      }
+    })
+
+    this.props.toggleTodoModal();
+  }
+
   componentDidUpdate(prevProps, prevState) {
     console.log("componentDidUpdate in TodoModal");
     if (prevProps.todoItem != null) {
-      const { name, description, category, tags, dueDate } = prevProps.todoItem;
+      const { _id, name, description, category, tags, dueDate, date, completed } = prevProps.todoItem;
+      console.log(tags)
       this.setState({
-        name: name,
-        description: description,
-        category: category,
-        tags: tags,
-        dueDate: dueDate
+        todoItem: {
+          _id,
+          name,
+          description,
+          category,
+          tags,
+          dueDate,
+          date,
+          completed
+        },
       });
     }
   }
@@ -113,13 +154,19 @@ class TodoModal extends Component {
       return { value: tag._id, label: tag.name };
     });
 
+    // const selectedCategory = this.state.todoItem.category;
+    // console.log(selectedCategory)
+
+    const selectedTags = this.state.todoItem.tags.length > 0 ? JSON.parse(this.state.todoItem.tags) : "";
+    console.log(selectedTags)
+
     return (
       <div>
         <Modal
           isOpen={this.props.todoModal}
-          toggle={this.props.toggleTodoModal}
+          toggle={this.onTodoModalClose}
         >
-          <ModalHeader toggle={this.toggleToDo}>Add Todo</ModalHeader>
+          <ModalHeader toggle={this.toggleToDo}>{this.state.todoItem._id !== null ? "Update " + this.state.todoItem.name : "Add Todo"}</ModalHeader>
           <Form onSubmit={this.onTodoSubmited}>
             <ModalBody>
               <Row>
@@ -131,8 +178,8 @@ class TodoModal extends Component {
                       name="name"
                       id="name"
                       placeholder="Add todo name"
-                      value={this.state.name}
-                      onChange={this.onInputChange}
+                      value={this.state.todoItem.name}
+                      onChange={this.onInputChange.bind(this)}
                       invalid={this.state.nameInvalid}
                     />
                     <FormFeedback>This field is required</FormFeedback>
@@ -148,7 +195,7 @@ class TodoModal extends Component {
                       name="description"
                       id="description"
                       placeholder="Add todo descrption"
-                      value={this.state.description}
+                      value={this.state.todoItem.description}
                       onChange={this.onInputChange}
                     />
                   </FormGroup>
@@ -160,7 +207,7 @@ class TodoModal extends Component {
                     <Label for="category">Category</Label>
                     <InputGroup>
                       <Select
-                        value={this.category}
+                        value={catOptions.find(option => option.value === this.state.todoItem.category)}
                         name="category"
                         id="category"
                         onChange={this.onCategoryChange}
@@ -184,7 +231,7 @@ class TodoModal extends Component {
                     <Label for="tags">Tags</Label>
                     <InputGroup>
                       <Select
-                        value={this.tags}
+                        value={selectedTags}
                         isMulti
                         name="tags"
                         id="tags"
@@ -212,7 +259,7 @@ class TodoModal extends Component {
                       name="dueDate"
                       id="dueDate"
                       placeholder="Add todo due date"
-                      value={new Date(this.state.dueDate)}
+                      value={new Date(this.state.todoItem.dueDate)}
                       onChange={this.onInputChange}
                     />
                   </FormGroup>
@@ -221,9 +268,9 @@ class TodoModal extends Component {
             </ModalBody>
             <ModalFooter>
               <Button color="primary" onClick={this.addNewTodo}>
-                Add To Do
+                {this.state.todoItem._id !== null ? "Update" : "Submit"}
               </Button>
-              <Button color="secondary" onClick={this.props.toggleTodoModal}>
+              <Button color="secondary" onClick={this.onTodoModalClose}>
                 Cancel
               </Button>
             </ModalFooter>
@@ -248,5 +295,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addTodo }
+  { addTodo, updateTodo }
 )(TodoModal);

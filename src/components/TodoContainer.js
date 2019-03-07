@@ -99,7 +99,7 @@ class ToDo extends Component {
           </Col>
           <Col className="text-right">
             <Button color="dark" onClick={this.toggleTodoModal}>
-              Add ToDo
+              Add Todo
             </Button>
           </Col>
         </Row>

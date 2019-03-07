@@ -35,14 +35,15 @@ export default function(state = initialState, action) {
       return {
         ...state,
         todos: state.todos.map((item, index) => {
-          if (index === action.index) {
+          if (item._id !== action.payload._id) {
+            
             // This isn't the item we care about - keep it as-is
             return item;
           }
           // Otherwise, this is the one we want - return an updated value
           return {
             ...item,
-            ...action.item
+            ...action.payload
           };
         })
       };
