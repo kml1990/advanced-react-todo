@@ -26,7 +26,6 @@ import { addTodo, updateTodo } from "../actions/todoActions";
 class TodoModal extends Component {
   constructor() {
     super();
-    console.log('constructor')
     
     this.state = {
       nameInvalid: false,
@@ -91,10 +90,8 @@ class TodoModal extends Component {
           };
           // Add todo via addTodo action
           if(this.state.todoItem._id === null){
-            console.log('add')
             this.props.addTodo(todo);
           } else {
-            console.log('update')
             this.props.updateTodo(todo);
           }
 
@@ -123,10 +120,8 @@ class TodoModal extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("componentDidUpdate in TodoModal");
     if (prevProps.todoItem != null) {
       const { _id, name, description, category, tags, dueDate, date, completed } = prevProps.todoItem;
-      console.log(tags)
       this.setState({
         todoItem: {
           _id,
@@ -143,7 +138,6 @@ class TodoModal extends Component {
   }
 
   render() {
-    console.log("render in TodoModal");
     const { categories } = this.props.category;
     const catOptions = categories.map(category => {
       return { value: category._id, label: category.name };
@@ -154,11 +148,7 @@ class TodoModal extends Component {
       return { value: tag._id, label: tag.name };
     });
 
-    // const selectedCategory = this.state.todoItem.category;
-    // console.log(selectedCategory)
-
     const selectedTags = this.state.todoItem.tags.length > 0 ? JSON.parse(this.state.todoItem.tags) : "";
-    console.log(selectedTags)
 
     return (
       <div>

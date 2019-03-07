@@ -40,7 +40,6 @@ class ToDo extends Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount in todoContainer");
     this.props.getTodos();
     this.props.getCategories();
     this.props.getTags();
@@ -90,7 +89,6 @@ class ToDo extends Component {
   };
 
   render() {
-    console.log("render in ToDoContainer");
     return (
       <Container fluid className="custom-fluid">
         <Row>

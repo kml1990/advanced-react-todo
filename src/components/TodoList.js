@@ -67,7 +67,6 @@ class TodoList extends Component {
       }
     });
 
-    console.log("render in TodoList");
     return (
       <ListGroup className="todo">
         <TransitionGroup className="todo__list">
