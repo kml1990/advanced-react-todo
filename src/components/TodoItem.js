@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { CSSTransition } from "react-transition-group";
 import {
   ListGroupItem,
   ListGroupItemHeading,
@@ -59,7 +58,6 @@ class TodoItem extends Component {
 
     return (
       <div>
-        <CSSTransition key={todoItem._id} timeout={500} classNames="fade">
           <ListGroupItem
             className={
               todoItem.completed
@@ -139,7 +137,6 @@ class TodoItem extends Component {
               </Row>
             </div>
           </ListGroupItem>
-        </CSSTransition>
       </div>
     );
   }

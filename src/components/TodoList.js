@@ -4,11 +4,18 @@ import PropTypes from "prop-types";
 import { deleteTodo, updateTodo } from "../actions/todoActions";
 
 import { ListGroup } from "reactstrap";
-import { TransitionGroup } from "react-transition-group";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import TodoItem from "./TodoItem";
 
 class TodoList extends Component {
+  constructor(){
+    super();
+    this.state = {
+      filteredTodos: [],
+      filter: {}
+    }
+  }
   onDeleteClick = id => {
     this.props.deleteTodo(id);
   };
@@ -47,9 +54,42 @@ class TodoList extends Component {
     }
   };
 
+  // componentDidUpdate (prevProps, prevState) {
+    
+  //   const { todos } = this.props.todo;
+  //   const filter = todos.filter(todo => {
+  //     let type = prevProps.filter.type;
+  //     let value = prevProps.filter.value;
+  //     if (type === "general" && value === "all") {
+  //       // return all
+  //       return todo;
+  //     } else if (type === "tag") {
+  //       // search by tags
+  //       let tags = JSON.parse(todo.tags);
+  //       let hasTag = tags.filter(x => x.value === value).length !== 0;
+  //       if (hasTag) {
+  //         return todo;
+  //       }
+  //     } else {
+  //       return todo[type] === value;
+  //     }
+  //   });
+  //   console.log(prevState.filteredTodos.length);
+  //   console.log(filter.length)
+
+  //   if(prevState.filteredTodos.length !== filter.length){
+  //     console.log('change state')
+  //     this.setState({
+  //       filteredTodos: filter
+  //     })
+  //   }
+
+    
+  // }
+
   render() {
     const { todos } = this.props.todo;
-    let filteredToDos = todos.filter(todo => {
+    const filter = todos.filter(todo => {
       let type = this.props.filter.type;
       let value = this.props.filter.value;
       if (type === "general" && value === "all") {
@@ -70,17 +110,14 @@ class TodoList extends Component {
     return (
       <ListGroup className="todo">
         <TransitionGroup className="todo__list">
-          {filteredToDos ? (
-            filteredToDos.map(todo => (
-              <TodoItem
-                key={todo._id}
-                todoItem={todo}
-                editTodo={this.props.editTodo}
-              />
-            ))
-          ) : (
-            <h1>No todos</h1>
-          )}
+            {filter.map(todoItem => (
+              <CSSTransition key={todoItem._id} timeout={500} classNames="fade">
+                <TodoItem
+                  todoItem={todoItem}
+                  editTodo={this.props.editTodo}
+                  />
+              </CSSTransition>
+            ))}
         </TransitionGroup>
       </ListGroup>
     );
